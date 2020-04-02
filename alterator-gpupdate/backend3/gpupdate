@@ -1,0 +1,28 @@
+#!/bin/sh
+
+alterator_api_version=1
+. alterator-sh-functions
+
+#turn off auto expansion
+set -f
+
+on_message()
+{
+    case "$in_action" in
+        read)
+            data="$(/usr/sbin/gpupdate-setup status)"
+            gp_status="$(echo $data | cut -f1 -d ' ')"
+            gp_type="$(echo $data | cut -f2 -d ' ')"
+            write_bool_param "gp_status" $(echo "$gp_status" | sed 's/enabled/true/')
+            write_string_param "gp_type" "$gp_type"
+            ;;
+        write)
+            [ "$in_gp_status" = "#f" ] && gp_status="disabled"
+            [ "$in_gp_status" = "#t" ] && gp_status="enabled"
+            output="$(/usr/sbin/gpupdate-setup write "$gp_status" "$in_gp_type" 2>&1)"
+            echo "$output" | grep "Success" || write_error "`_ "Cannot enable group policy:"` $output"
+            ;;
+        esac
+}
+
+message_loop

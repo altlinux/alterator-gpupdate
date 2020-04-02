@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Categories=X-Alterator-System
+Icon=auth
+Terminal=false
+X-Alterator-URI=/gpupdate
+X-Alterator-Weight=20
+X-Alterator-Help=gpupdate
+Name=Group Policy
+Name[ru]=Групповые политики
+Name[uk]=Групові політики

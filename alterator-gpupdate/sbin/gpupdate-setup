@@ -1,0 +1,27 @@
+#!/bin/sh
+
+############################################
+# this is a stub script needed for testing
+############################################
+
+path="/root/gpupdate_status_type"
+
+case $1 in
+    status)
+        . $path
+        [ "$gp_status" = "enabled" ] && ([ "$gp_type" = "workstation" ] && echo "enabled workstation" )
+        [ "$gp_status" = "enabled" ] && ([ "$gp_type" = "server" ] && echo "enabled server" )
+        [ "$gp_status" = "disabled" ] && echo "disabled"
+        #echo "enabled workstation"
+        #echo "enabled server"
+        #echo "disabled"
+        ;;
+    write)
+        echo "gp_status=\"$2\"" > $path
+        echo "gp_type=\"$3\"" >> $path
+        echo "Success"
+        #echo "Error $gp_status $gp_type"
+        ;;
+    *)
+        ;;
+esac
