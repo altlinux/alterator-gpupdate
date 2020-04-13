@@ -10,17 +10,23 @@ on_message()
 {
     case "$in_action" in
         read)
-            data="$(/usr/sbin/gpupdate-setup status)"
-            gp_status="$(echo $data | cut -f1 -d ' ')"
-            gp_type="$(echo $data | cut -f2 -d ' ')"
-            write_bool_param "gp_status" $(echo "$gp_status" | sed 's/enabled/true/')
+            policy_status="$(/usr/sbin/gpupdate-setup status)"
+            active_policy="$(/usr/sbin/gpupdate-setup active-policy)"
+
+            gp_status="$(echo ${policy_status} | sed 's/enabled/true/')"
+            gp_type="${active_policy##*/}"
+
+            write_bool_param "gp_status" "$gp_status"
             write_string_param "gp_type" "$gp_type"
             ;;
         write)
-            [ "$in_gp_status" = "#f" ] && gp_status="disabled"
-            [ "$in_gp_status" = "#t" ] && gp_status="enabled"
-            output="$(/usr/sbin/gpupdate-setup write "$gp_status" "$in_gp_type" 2>&1)"
-            echo "$output" | grep "Success" || write_error "`_ "Cannot enable group policy:"` $output"
+            [ "$in_gp_status" = "#f" ] && gp_status="disable"
+            [ "$in_gp_status" = "#t" ] && gp_status="enable"
+            if output=`/usr/sbin/gpupdate-setup write "$gp_status" "$in_gp_type" 2>&1`; then
+                echo $output
+            else
+                write_error "`_ "Cannot enable group policy:"` $output"
+            fi
             ;;
         esac
 }
