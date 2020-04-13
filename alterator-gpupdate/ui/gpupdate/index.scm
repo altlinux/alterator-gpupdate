@@ -11,12 +11,13 @@
                     "gp_type" (form-value "gp_type")
                     (form-value-list)
                 )
-                (form-update-value-list '("gp_status") (woo-read-first "/gpupdate"))
-                (if (form-value "gp_status")
-                    (document:popup-information (_ "Group Policy enabled") 'ok)
-                ;;;else branch
-                    (document:popup-information (_ "Group Policy disabled") 'ok)
-                )
+                (let ((data (woo-read-first "/gpupdate")))
+                  (form-update-value-list '("gp_status" "gp_type") data)
+                  (document:popup-information
+                    (string-append
+                      (_ "Group Policy ")
+                      (woo-get-option data 'gp_type))
+                    'ok))
             )
         )
     )
