@@ -1,12 +1,14 @@
 Name: alterator-gpupdate
 Version: 1.1
-Release: alt1
+Release: alt2
 
 Source:%name-%version.tar
 
 Summary: Alterator module for group policy settings
 License: GPL
 Group: System/Configuration/Other
+BuildArch: noarch
+
 Requires: alterator >= 4.7-alt4
 Requires: alterator-l10n >= 2.0-alt1
 Requires: gpupdate
@@ -38,6 +40,10 @@ export GUILE_LOAD_PATH=/usr/share/alterator/lookout
 %_alterator_backend3dir/*
 
 %changelog
+* Mon Apr 20 2020 Evgeny Sinelnikov <sin@altlinux.org> 1.1-alt2
+- Update desktop file l10n
+- Set BuildArch to noarch as whole source package should be made noarch
+
 * Mon Apr 20 2020 Evgeny Sinelnikov <sin@altlinux.org> 1.1-alt1
 - Adapted backend for gpupdate-setup CLI
 - Add support for multiple profiles
