@@ -1,5 +1,5 @@
 Name: alterator-gpupdate
-Version: 1.0
+Version: 1.1
 Release: alt1
 
 Source:%name-%version.tar
@@ -9,7 +9,6 @@ License: GPL
 Group: System/Configuration/Other
 Requires: alterator >= 4.7-alt4
 Requires: alterator-l10n >= 2.0-alt1
-Requires: alterator-auth >= 0.41-alt1
 Requires: gpupdate
 
 BuildPreReq: alterator >= 5.0 alterator-lookout
@@ -39,6 +38,11 @@ export GUILE_LOAD_PATH=/usr/share/alterator/lookout
 %_alterator_backend3dir/*
 
 %changelog
+* Mon Apr 20 2020 Evgeny Sinelnikov <sin@altlinux.org> 1.1-alt1
+- Adapted backend for gpupdate-setup CLI
+- Add support for multiple profiles
+- Improve ui display
+
 * Thu Apr 02 2020 Rustem Bapin <rbapin@altlinux.org> 1.0-alt1
 - First working version
 
