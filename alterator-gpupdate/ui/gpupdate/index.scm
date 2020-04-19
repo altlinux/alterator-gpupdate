@@ -50,22 +50,24 @@
     columns "100"
     margin 50
 
-    (checkbox colspan 2 align "left" text(_ "Enable Group Policy") name "gp_status" (when changed (reset-gp-type-activity)) )
+    (vbox align "center"
+    (checkbox colspan 2 align "left" text(_ "Group Policy Management") name "gp_status" (when changed (reset-gp-type-activity)) )
+    ;;; Warning if task-auth-ad and task-auth-ad-sssd is unavailable
+    (document:id type-group-policy-warning (gridbox colspan 4 columns "0;100" visibility #t (label text "   ") (label
+        text (string-append (bold (_ "Warning: ")) (_ "This module enables Group Policy users and computer<br />management. Additional settings applies during boot process and<br />user login after authentication in Active Directory.")))))
     (spacer)
     (label)
 
     (document:id gp-type-activity
         (gridbox activity #f
-            (label text (_ "Current group policies:") align "left" visibility #t)
-            (label)
+            (label text (_ "Current group policy profile:") align "left" visibility #t)
+            (spacer)
 
             ;;; Workstation
             (radio name "gp_type" value "workstation" text (_ "Workstation") state #t)
-            (label)
 
             ;;; Server
             (radio name "gp_type" value "server" text (_ "Server"))
-            (label)
         )
     )
 
@@ -73,7 +75,7 @@
     (if (global 'frame:next)
     (label)
     (hbox align "left"
-	(document:id apply-button (button name "apply" text (_ "Apply") (when clicked (ui-commit))))))
+	(document:id apply-button (button name "apply" text (_ "Apply") (when clicked (ui-commit)))))))
 )
 
 ;;; Logic
