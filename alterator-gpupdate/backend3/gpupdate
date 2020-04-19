@@ -6,9 +6,21 @@ alterator_api_version=1
 #turn off auto expansion
 set -f
 
+list_profiles()
+{
+    /usr/sbin/gpupdate-setup list
+}
+
 on_message()
 {
     case "$in_action" in
+        list)
+            case "$in__objects" in
+                profiles)
+                    list_profiles | write_enum ;;
+                *)            on_list ;;
+            esac
+            ;;
         read)
             policy_status="$(/usr/sbin/gpupdate-setup status)"
             active_policy="$(/usr/sbin/gpupdate-setup active-policy)"
