@@ -1,6 +1,6 @@
 Name: alterator-gpupdate
-Version: 1.1
-Release: alt2
+Version: 1.2
+Release: alt1
 
 Source:%name-%version.tar
 
@@ -10,7 +10,7 @@ Group: System/Configuration/Other
 BuildArch: noarch
 
 Requires: alterator >= 4.7-alt4
-Requires: alterator-l10n >= 2.0-alt1
+Requires: alterator-l10n >= 2.9.62
 Requires: gpupdate
 
 BuildPreReq: alterator >= 5.0 alterator-lookout
@@ -40,6 +40,11 @@ export GUILE_LOAD_PATH=/usr/share/alterator/lookout
 %_alterator_backend3dir/*
 
 %changelog
+* Wed Apr 22 2020 Evgeny Sinelnikov <sin@altlinux.org> 1.2-alt1
+- Add predefined profile name for ad-domain-controller
+- Improve popup information after group policy management apply
+- Require appropriate alterator-l10n version
+
 * Mon Apr 20 2020 Evgeny Sinelnikov <sin@altlinux.org> 1.1-alt2
 - Update desktop file l10n
 - Set BuildArch to noarch as whole source package should be made noarch
