@@ -43,6 +43,7 @@
 ;;; Predefined profile names with l10n
 (define profile-workstation-name (_ "workstation"))
 (define profile-server-name (_ "server"))
+(define profile-server-name (_ "ad-domain-controller"))
 
 (define (add-profile-radio profile)
     (radio name "gp_type" value profile text (_ profile) state #f))
