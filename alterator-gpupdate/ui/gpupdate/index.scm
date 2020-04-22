@@ -50,12 +50,8 @@
 )
 
 (define (profile-name profile)
-    (let next-name ((names profile-names))
-        (if (null? names)
-            profile
-            (if (equal? profile (car (car names)))
-                (car (cdr (car names)))
-                (next-name (cdr names))))))
+    (let ((name (assoc-ref profile-names profile)))
+        (if name (car name) profile)))
 
 (define (add-profile-radio profile)
     (radio name "gp_type" value profile text (profile-name profile) state #f))
