@@ -16,8 +16,8 @@
                   (document:popup-information
                     (if (woo-get-option data 'gp_status)
                       (string-append
-                      (_ "Group Policy management enabled for profile: ")
-                        (profile-name (woo-get-option data 'gp_type)))
+                      (_ "Group Policy management<br />enabled for profile: ")
+                        "<br /><br /><b>" (profile-name (woo-get-option data 'gp_type)) "</b><br />")
                       (_ "Group Policy management disabled"))
                     'ok))
             )
