@@ -16,9 +16,9 @@
                   (document:popup-information
                     (if (woo-get-option data 'gp_status)
                       (string-append
-                      (_ "Group Policy enabled for profile: ")
-                        (_ (woo-get-option data 'gp_type)))
-                      (_ "Group Policy disabled"))
+                      (_ "Group Policy management enabled for profile: ")
+                        (profile-name (woo-get-option data 'gp_type)))
+                      (_ "Group Policy management disabled"))
                     'ok))
             )
         )
@@ -41,12 +41,24 @@
 )
 
 ;;; Predefined profile names with l10n
-(define profile-workstation-name (_ "workstation"))
-(define profile-server-name (_ "server"))
-(define profile-server-name (_ "ad-domain-controller"))
+(define profile-names
+    (list
+        (list "ad-domain-controller" (_ "Active Directory Domain Controller"))
+        (list "workstation"          (_ "Workstation"))
+        (list "server"               (_ "Server"))
+    )
+)
+
+(define (profile-name profile)
+    (let next-name ((names profile-names))
+        (if (null? names)
+            profile
+            (if (equal? profile (car (car names)))
+                (car (cdr (car names)))
+                (next-name (cdr names))))))
 
 (define (add-profile-radio profile)
-    (radio name "gp_type" value profile text (_ profile) state #f))
+    (radio name "gp_type" value profile text (profile-name profile) state #f))
 
 ;;; UI
 (gridbox
