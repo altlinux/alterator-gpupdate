@@ -65,9 +65,10 @@
     (checkbox colspan 2 align "left" text(_ "Group Policy Management") name "gp_status" (when changed (reset-gp-type-activity)) )
     ;;; Warning if task-auth-ad and task-auth-ad-sssd is unavailable
     (document:id type-group-policy-warning (gridbox colspan 4 columns "0;100" visibility #t (label text "   ") (label
-        text (string-append (bold (_ "Warning: ")) (_ "This module enables Group Policy users and computer
-<br />management. Additional settings applies during boot process and
-<br />user login after authentication in Active Directory.")))))
+        text (string-append (bold (_ "Warning: "))
+            (_ "This module enables Group Policy users and computer") "<br />"
+            (_ "management. Additional settings applies during boot process and") "<br />"
+            (_ "user login after authentication in Active Directory.")))))
     (spacer)
     (label)
 
