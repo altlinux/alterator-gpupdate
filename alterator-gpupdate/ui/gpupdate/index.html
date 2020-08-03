@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">
+<!-- group policy configuration module -->
+<html wf="none">
+  <head>
+  </head>
+  <body>
+    <form method="POST">
+      <table class="form-table">
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr><td colspan="2">
+          <table><thead>
+          <tr>
+            <th align="left" colspan="2"><input type="checkbox" name="gp_status" value="#t"/><span translate="_">Group Policy Management</span></th>
+          </tr>
+          </thead></table>
+        </td></tr>
+        <tr><td style="white-space: normal; text-align: left;">
+              <b><span translate="_">Warning: </span></b>
+              <span translate="_">This module enables Group Policy users and computer</span>
+              <span translate="_">management. Additional settings applies during boot process and</span>
+              <span translate="_">user login after authentication in Active Directory.</span>
+        </td></tr>
+        <tr><td colspan="2">&nbsp;</td></tr>
+        <tr><td style="text-align: left;">
+            <span translate="_">Current group policy profile:</span><br />
+            <table class="alterator-radiolistbox" name="gp_type" enumref="/gpupdate/profiles">
+                <tbody><tr>
+                </tr></tbody>
+            </table><br />
+        </td></tr>
+        <tr><td style="text-align: left;">
+          <input type="button" name="submit" class="btn" value="Apply"/>
+        </td></tr>
+      </table>
+      <br/>
+    </form>
+  </body>
+</html>
