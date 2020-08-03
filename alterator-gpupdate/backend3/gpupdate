@@ -11,13 +11,25 @@ list_profiles()
     /usr/sbin/gpupdate-setup list
 }
 
+write_predefine_profile_names()
+{
+    while read profile; do
+        case "$profile" in
+            workstation) echo "$profile" "`_ "Workstation"`" ;;
+            server) echo "$profile" "`_ "Server"`" ;;
+            ad-domain-controller) echo "$profile" "`_ "Active Directory Domain Controller"`" ;;
+            *) echo "$profile" ;;
+        esac
+    done
+}
+
 on_message()
 {
     case "$in_action" in
         list)
             case "$in__objects" in
                 profiles)
-                    list_profiles | write_enum ;;
+                    list_profiles | write_predefine_profile_names | write_enum ;;
                 *)            on_list ;;
             esac
             ;;
