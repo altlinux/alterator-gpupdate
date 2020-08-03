@@ -18,9 +18,14 @@ write_predefine_profile_names()
             workstation) echo "$profile" "`_ "Workstation"`" ;;
             server) echo "$profile" "`_ "Server"`" ;;
             ad-domain-controller) echo "$profile" "`_ "Active Directory Domain Controller"`" ;;
-            *) echo "$profile" ;;
+            *) echo "$profile" "`_ "User profile: "`" "$profile" ;;
         esac
     done
+}
+
+profile_name()
+{
+    echo "$1" | write_predefine_profile_names | sed "s/^$1 //g"
 }
 
 on_message()
@@ -42,6 +47,7 @@ on_message()
 
             write_bool_param "gp_status" "$gp_status"
             write_string_param "gp_type" "$gp_type"
+            write_string_param "gp_profile_name" "$(profile_name $gp_type)"
             ;;
         write)
             [ "$in_gp_status" = "#f" ] && gp_status="disable"

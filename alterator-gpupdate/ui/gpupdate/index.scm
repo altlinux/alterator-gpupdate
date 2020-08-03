@@ -12,12 +12,12 @@
                     (form-value-list)
                 )
                 (let ((data (woo-read-first "/gpupdate")))
-                  (form-update-value-list '("gp_status" "gp_type") data)
+                  (form-update-value-list '("gp_status" "gp_profile_name") data)
                   (document:popup-information
                     (if (woo-get-option data 'gp_status)
                       (string-append
                       (_ "Group Policy management<br />enabled for profile: ")
-                        "<br /><br /><b>" (profile-name (woo-get-option data 'gp_type)) "</b><br />")
+                        "<br /><br /><b>" (woo-get-option data 'gp_profile_name) "</b><br />")
                       (_ "Group Policy management disabled"))
                     'ok))
             )
@@ -40,21 +40,8 @@
     )
 )
 
-;;; Predefined profile names with l10n
-(define profile-names
-    (list
-        (list "ad-domain-controller" (_ "Active Directory Domain Controller"))
-        (list "workstation"          (_ "Workstation"))
-        (list "server"               (_ "Server"))
-    )
-)
-
-(define (profile-name profile)
-    (let ((name (assoc-ref profile-names profile)))
-        (if name (car name) profile)))
-
 (define (add-profile-radio profile)
-    (radio name "gp_type" value profile text (profile-name profile) state #f))
+    (radio name "gp_type" value (woo-get-option profile 'name) text (woo-get-option profile 'label) state #f))
 
 ;;; UI
 (gridbox
@@ -77,7 +64,7 @@
             (label text (_ "Current group policy profile:") align "left" visibility #t)
             (spacer)
 
-            (map add-profile-radio (woo-list/name "/gpupdate/profiles"))
+            (map add-profile-radio (woo-list "/gpupdate/profiles" 'language (form-value "language")))
         )
     )
 
